@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="https://addons.opera.com/addons/extensions/details/live-news-feed/" version="1.11" viewmodes="minimized">
+  <name>Live news feed</name>
+  <feature name="opera:speeddial">
+    <param name="url" value="http://opera.com"/>
+  </feature>
+  <icon src="64.png"/>
+  <access origin="*"/>
+  <preference name="feedUrl" value=""/>
+  <preference name="count" value="5"/>
+  <preference name="interval" value="7"/>
+  <preference name="defaultFeed" value=""/>
+  <update-description href="https://extension-updates.opera.com/api/w3c-wd1/update/1b364c5a-f02e-4164-bbb5-14e014048672/"/>
+  <license>Copyright 2011 Opera Software. All rights reserved.</license>
+  <author href="https://addons.opera.com">Opera Software</author>
+  <description xml:lang="en">Get real time news feeds from BBC, Wired, Engadget and more, right in your speed dial</description>
+</widget>

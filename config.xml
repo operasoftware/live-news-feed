@@ -10,7 +10,7 @@
   <preference name="count" value="5"/>
   <preference name="interval" value="7"/>
   <preference name="defaultFeed" value=""/>
-  <preference name="nameChecked" value="true"/>
+  <preference name="nameCheckbox" value="true"/>
   <update-description href="https://extension-updates.opera.com/api/w3c-wd1/update/1b364c5a-f02e-4164-bbb5-14e014048672/"/>
   <license>Copyright 2011 Opera Software. All rights reserved.</license>
   <author href="https://addons.opera.com">Opera Software</author>

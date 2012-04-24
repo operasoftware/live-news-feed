@@ -13,6 +13,7 @@
             prefs       : widget.preferences,
             items       : [],
             timer       : null,
+            title       : '',
         }
     
     // update feeds in the speed-dial
@@ -26,13 +27,20 @@
         document.getElementById('desc').textContent = _data.items[ind].desc;
         document.getElementById('date').textContent = '(' + _data.items[ind].date + ')';
         
+
+        var name = _data.prefs.getItem('nameCheckbox') === "true"
+                    ? _data.title 
+                    : _data.prefs.getItem('nameInput');
         opera.contexts.speeddial.url = _data.items[ind].href;
+        opera.contexts.speeddial.title = name;
+        _data.feed = _data.prefs.getItem('feedUrl');
         
         // switch feeds every X seconds
         _data.timer = setTimeout(function(){_updateFeeds(next)}, _data.interval  * 1000);
     }
 
     function _clearData(message){
+        opera.extension.title = "Live news feed";
         document.getElementById('title').textContent = '';
         document.getElementById('desc').textContent = '';
         document.getElementById('date').textContent = '';
@@ -51,7 +59,10 @@
     // process the data received from the XHR
     function _processData(xmlDoc)
     {
-        var items = xmlDoc.getElementsByTagName('item');
+        var title = xmlDoc.querySelector('title');
+        _data.title = title.textContent || "No title";
+
+        var items = xmlDoc.querySelectorAll('item, entry');
         var len = items.length;
         if (_data.count > len) _data.count = len;
         

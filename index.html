@@ -83,18 +83,29 @@
     function _parseItem(item){
         // sometimes descriptions contains tags like IMG
         var desc = document.createElement('div');
-        var xmlDesc = item.getElementsByTagName('description')[0] || item.getElementsByTagName('encoded')[0];
-        desc.innerHTML = xmlDesc.textContent;
-        var date = item.getElementsByTagName('pubDate')[0];
-        if (date) date = date.textContent.substr(5);
-        else date = item.getElementsByTagName('date')[0].textContent
+        var xmlDesc = item.querySelector('description, encoded, content');
+        var description = xmlDesc ? xmlDesc.textContent : '';
+        desc.innerHTML = unescapeText(description);
+        var date = item.querySelector('pubDate');
+        if(date) {
+            date = date.textContent.substr(5);
+        }
+        else {
+            date = item.querySelector('date, updated');
+            date = date ? date.textContent : '';
+        }
         
         _data.items.push({
-            title   : item.getElementsByTagName('title')[0].textContent.replace(/(<([^>]+)>)/ig,""),
+            title   : unescapeText(item.getElementsByTagName('title')[0].textContent.replace(/(<([^>]+)>)/ig,"")),
             desc    : desc.textContent,
             date    : date,
             href    : item.getElementsByTagName('link')[0].textContent
         })
+    }
+
+    function unescapeText(text) {
+        text = text.replace(/\&mdash;/g, '—');
+        return text;
     }
 
     // get feeds from url

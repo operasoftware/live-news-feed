@@ -57,8 +57,22 @@
     }
     
     // process the data received from the XHR
-    function _processData(xmlDoc)
+    function _processData(xhr)
     {
+        var xmlDoc;
+        if(!xhr.responseXML) {
+            var parser = new window.DOMParser()
+            try {
+                xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+            }
+            catch(error) {
+                return opera.postError('Error parsing feed.');
+            }
+        }
+        else {
+            xmlDoc = xhr.responseXML;
+        }
+
         var title = xmlDoc.querySelector('title');
         _data.title = title.textContent || "No title";
 
@@ -126,7 +140,7 @@
                 return false;
             };
 
-            _processData( this.responseXML );
+            _processData( this );
             _updateTimer = setTimeout( _XHRFeed, 1000*120 );
         }
         xhr.send(null);
